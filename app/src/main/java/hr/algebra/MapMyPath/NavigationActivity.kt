@@ -1,13 +1,15 @@
 package hr.algebra.MapMyPath
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.algebra.MapMyPath.databinding.ActivityNavigationBinding
+import hr.algebra.MapMyPath.shared.Constants
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -18,6 +20,11 @@ class NavigationActivity : AppCompatActivity() {
 
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val tvGreeting : TextView = findViewById(R.id.tvGreeting)
+        val intent = intent
+        val name = intent.getStringExtra(Constants.USER_NAME)
+         tvGreeting.text="Hello $name"
 
         val navView: BottomNavigationView = binding.navView
 
