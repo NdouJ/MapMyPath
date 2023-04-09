@@ -1,13 +1,17 @@
 package hr.algebra.MapMyPath
 
+import android.Manifest.permission.INTERNET
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Rect
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.util.Log.ASSERT
 import android.view.MotionEvent
@@ -16,8 +20,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 import hr.algebra.MapMyPath.shared.Constants
+import android.Manifest
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,8 +40,35 @@ class MainActivity : AppCompatActivity() {
         val rootView = findViewById<View>(android.R.id.content)
         val  tvUserName : TextView = findViewById(R.id.tv_username)
         val IvrunningRabbit : ImageView = findViewById(R.id.rabbit_running)
-        
-        
+
+
+
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.INTERNET), 1)
+        }
+
+
+
+
+
+
+        if (!isLocationEnabled()){
+            Toast.makeText(this, "Please Enable GPS location", Toast.LENGTH_LONG).show()
+
+            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(intent)
+        } else {
+
+            Toast.makeText(this, "GPS enebled", Toast.LENGTH_LONG).show()
+
+
+
+        }
+
+
         animateRabbit(IvrunningRabbit)
 
         buttonSkip.setOnClickListener {
@@ -97,4 +133,27 @@ class MainActivity : AppCompatActivity() {
         }
         animation.start()
     }
+
+
+    private fun isLocationEnabled():Boolean{
+        val locationManager:LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+               /* || locationManager.isProviderEnabled(locationManager.NETWORK_PROVIDER) */
+
+
+    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1) {
+            if (grantResults.isNotEmpty() &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission was granted, you can access the internet
+            } else {
+                // Permission was denied, you cannot access the internet
+            }
+        }
+    }
+
 }
