@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -18,6 +19,17 @@ import kotlinx.coroutines.launch
 import java.net.URL
 
 class NotificationsFragment : Fragment() {
+
+    private lateinit var cityTextView: TextView
+    private lateinit var mainTemp: TextView
+    private lateinit var feels_temp: TextView
+    private lateinit var presure: TextView
+    private lateinit var humidity: TextView
+    private lateinit var clouds: TextView
+    private lateinit var sunrise: TextView
+    private lateinit var sunset: TextView
+    private lateinit var wind_speed: TextView
+    private lateinit var progressBar: ProgressBar
 
 
     private var _binding: FragmentNotificationsBinding? = null
@@ -39,9 +51,19 @@ class NotificationsFragment : Fragment() {
 
         val textView: TextView = binding.textNotifications
         notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            textView.text = ""
         }
 
+        cityTextView = binding.idCity
+        mainTemp=binding.idMainTemp
+        feels_temp=binding.idFeelsTemp
+        presure=binding.idPresure
+        humidity=binding.idHumidity
+        clouds=binding.idClouds
+        sunrise=binding.idSunrise
+        sunset=binding.idSunset
+        wind_speed = binding.windSpeed
+        progressBar = binding.progressBar
 
 
         try{
@@ -49,7 +71,7 @@ class NotificationsFragment : Fragment() {
             getWeatherFropOpenWeatherApi();
         } catch (er : Exception){
 
-            Log.e(this.toString(), er.toString())
+            Log.e(this.toString(), "Weatherapi connection problem "+er.toString())
         }
 
 
@@ -58,6 +80,7 @@ class NotificationsFragment : Fragment() {
 
     private fun getWeatherFropOpenWeatherApi() {
         GlobalScope.launch(Dispatchers.IO) {
+            progressBar.visibility = View.VISIBLE
             val apiKey = "cda5d4bb347f5cd215128a802a0419b6"
             val city = "Zagreb"
             val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey"
@@ -66,21 +89,23 @@ class NotificationsFragment : Fragment() {
             val gson = Gson()
             val weatherData = gson.fromJson(response, WeatherData::class.java)
 
-            println("City: ${weatherData.name}")
-            println("Weather: ${weatherData.weather[0].main}, ${weatherData.weather[0].description}")
-            println("Temperature: ${weatherData.main.temp} K")
-            println("Feels Like: ${weatherData.main.feels_like} K")
-            println("Pressure: ${weatherData.main.pressure} hPa")
-            println("Humidity: ${weatherData.main.humidity}%")
-            println("Wind Speed: ${weatherData.wind.speed} m/s")
-            println("Cloudiness: ${weatherData.clouds.all}%")
-            println("Country: ${weatherData.sys.country}")
-            println("Sunrise: ${weatherData.sys.sunrise}")
-            println("Sunset: ${weatherData.sys.sunset}")
 
             launch(Dispatchers.Main) {
-                Toast.makeText(requireContext(), weatherData.main.humidity.toString(), Toast.LENGTH_LONG).show()
+                progressBar.visibility = View.INVISIBLE
             }
+
+
+            val cityfromApi = weatherData.name
+            cityTextView.text = "City: " + cityfromApi
+            mainTemp.text="Temperature"+weatherData.main.temp + "K"
+            feels_temp.text="Feels temp: "+weatherData.main.feels_like +" K"
+            presure.text="Presure"+weatherData.main.pressure
+            humidity.text="Humidity: ${weatherData.main.humidity}%"
+            wind_speed.text="Wind Speed: ${weatherData.wind.speed} m/s"
+            clouds.text="Cloudiness: ${weatherData.clouds.all}%"
+            sunrise.text="Sunrise: ${weatherData.sys.sunrise}"
+            sunset.text="Sunset: ${weatherData.sys.sunset}"
+
         }
     }
 
