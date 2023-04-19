@@ -1,7 +1,5 @@
 package hr.algebra.MapMyPath
 
-import android.Manifest.permission.INTERNET
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.util.Log.ASSERT
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -23,10 +20,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.squareup.picasso.Picasso
 import hr.algebra.MapMyPath.shared.Constants
 import android.Manifest
-
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         val buttonSkip: Button = findViewById(R.id.btn_skip)
         val buttonSubmit : Button = findViewById(R.id.btn_submit)
         val rootView = findViewById<View>(android.R.id.content)
-        val  tvUserName : TextView = findViewById(R.id.tv_username)
+        val tvUserName : TextView = findViewById(R.id.tv_username)
         val IvrunningRabbit : ImageView = findViewById(R.id.rabbit_running)
-
+        val tv_registration :TextView = findViewById(R.id.tv_registration)
 
 
 
@@ -51,6 +48,11 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        tv_registration.isClickable=true
+        tv_registration.setOnClickListener {
+
+          startActivity(Intent(this, RegistrationActivity::class.java))
+        }
 
 
 
@@ -118,10 +120,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun animateRabbit(ivrunningRabbit: ImageView) {
-       // val animation = ObjectAnimator.ofFloat(ivrunningRabbit, "translationX", 0f, 500f)
-      //  animation.duration = 1000
-      //  animation.start()
-
         val screenWidth = resources.displayMetrics.widthPixels.toFloat()
         val animation = ValueAnimator.ofFloat(-ivrunningRabbit.width.toFloat(), screenWidth)
         animation.duration = 2000
@@ -131,8 +129,16 @@ class MainActivity : AppCompatActivity() {
             val value = valueAnimator.animatedValue as Float
             ivrunningRabbit.translationX = value
         }
-        animation.start()
+
+        val rotationAnimation = ObjectAnimator.ofFloat(ivrunningRabbit, "rotation", 0f, 360f)
+        rotationAnimation.duration = 1000
+        rotationAnimation.repeatCount = ValueAnimator.INFINITE
+
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(animation, rotationAnimation)
+        animatorSet.start()
     }
+
 
 
     private fun isLocationEnabled():Boolean{

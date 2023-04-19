@@ -1,29 +1,26 @@
 package hr.algebra.MapMyPath.ui.notifications
 
- import hr.algebra.MapMyPath.R
-import android.app.AlertDialog
+ import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
-import android.os.Bundle
-import android.util.Log
+ import android.os.Bundle
+ import android.speech.tts.TextToSpeech
+ import android.util.Log
 import android.view.*
 import android.widget.*
-import androidx.core.view.isVisible
-import androidx.fragment.app.DialogFragment
+ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.Snackbar.SnackbarLayout
-import com.google.gson.Gson
+ import com.google.gson.Gson
 import hr.algebra.MapMyPath.databinding.FragmentNotificationsBinding
 import hr.algebra.MapMyPath.model.WeatherData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
+ import java.util.*
 
 
-class NotificationsFragment : Fragment() {
+class NotificationsFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private lateinit var cityTextView: TextView
     private lateinit var mainTemp: TextView
@@ -36,31 +33,40 @@ class NotificationsFragment : Fragment() {
     private lateinit var wind_speed: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var weatherData: WeatherData
-     var flag = 0;
+    private  var tts :TextToSpeech? = null
+    private var weatherRecBackup: String? =null;
+
+     var flag = 0
 
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _NotificationFragmentBinding: FragmentNotificationsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+    private val binding get() = _NotificationFragmentBinding!!
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View {
+        setHasOptionsMenu(true)
         val notificationsViewModel =
             ViewModelProvider(this).get(NotificationsViewModel::class.java)
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _NotificationFragmentBinding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textNotifications
         notificationsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = ""
         }
-
+        _NotificationFragmentBinding?.imageView2!!.setOnClickListener{
+            speekOut(weatherRecBackup!!)
+        }
+        speekOut("Hello welcome")
         cityTextView = binding.idCity
         mainTemp=binding.idMainTemp
         feels_temp=binding.idFeelsTemp
@@ -72,7 +78,8 @@ class NotificationsFragment : Fragment() {
         wind_speed = binding.windSpeed
         progressBar = binding.progressBar
 
-
+tts = TextToSpeech(requireContext(), this)
+        
         try{
 
             getWeatherFropOpenWeatherApi();
@@ -85,12 +92,12 @@ class NotificationsFragment : Fragment() {
 while(true){
     if(flag==1){
         makeClothesRecomendation(weatherData)
+
         break
     }
 }
         return root
     }
-
     private fun getWeatherFropOpenWeatherApi() {
         GlobalScope.launch(Dispatchers.IO) {
             progressBar.visibility = View.VISIBLE
@@ -136,10 +143,10 @@ while(true){
 
         var temperatureRecommendation = ""
         when {
-            weatherData!!.main.temp < 0 -> temperatureRecommendation = "The temperature is below freezing. It's important to stay warm and cozy."
-            weatherData!!.main.temp >= 0 && weatherData.main.temp <= 10 -> temperatureRecommendation = "The temperature is chilly outside. Make sure to bundle up to stay warm."
-            weatherData!!.main.temp > 10 && weatherData.main.temp <= 17 -> temperatureRecommendation = "The temperature is cooler outside, so it's a good idea to bring a light jacket or sweater."
-            weatherData!!.main.temp > 17 && weatherData.main.temp <= 26 -> temperatureRecommendation = "The temperature is comfortable outside, enjoy the day!"
+            weatherData!!.main.temp-273.15 < 0 -> temperatureRecommendation = "The temperature is below freezing. It's important to stay warm and cozy."
+            weatherData!!.main.temp-273.15 >= 0 && weatherData.main.temp-273.15 <= 10 -> temperatureRecommendation = "The temperature is chilly outside. Make sure to bundle up to stay warm."
+            weatherData!!.main.temp -273.15> 10 && weatherData.main.temp-273.15 <= 17 -> temperatureRecommendation = "The temperature is cooler outside, so it's a good idea to bring a light jacket or sweater."
+            weatherData!!.main.temp-273.15 > 17 && weatherData.main.temp-273.15 <= 26 -> temperatureRecommendation = "The temperature is comfortable outside, enjoy the day!"
             else -> temperatureRecommendation = "The temperature is hot outside, so make sure to wear light clothing to stay cool."
         }
 
@@ -159,7 +166,7 @@ while(true){
         }
 
         val weatherRec= temperatureRecommendation+windRecommendation+rainRecommendation
-
+        weatherRecBackup=weatherRec
 
 
 //Toast.makeText(requireContext(), weatherRec, Toast.LENGTH_LONG).show()
@@ -171,7 +178,7 @@ while(true){
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        _NotificationFragmentBinding = null
     }
 
     class CustomDialogFragment(private val message: String) : DialogFragment() {
@@ -199,7 +206,30 @@ while(true){
 
     }
 
+    override fun onInit(status: Int)  {
+            if (status == TextToSpeech.SUCCESS) {
+                val result = tts!!.setLanguage(Locale.US)
+                Log.d("TTS", "TextToSpeech initialized successfully")
+            } else {
+                Log.e("TTS", "TextToSpeech initialization failed")
+            }
+
+
     }
+    private fun speekOut ( text : String){
+        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (tts != null){
+            tts?.stop()
+            tts?.shutdown()
+        }
+        _NotificationFragmentBinding=null
+    }
+}
 
 
 

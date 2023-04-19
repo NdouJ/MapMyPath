@@ -22,6 +22,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 

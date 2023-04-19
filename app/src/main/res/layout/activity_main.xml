@@ -21,7 +21,18 @@
         />
 
 
+    <TextView
+        android:id="@+id/tv_registration"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:paddingVertical="10dp"
+        android:background="@drawable/textview_card"
+        android:text="REGISTRATION"
+        android:layout_margin="15dp"
 
+        />
 
 
 
