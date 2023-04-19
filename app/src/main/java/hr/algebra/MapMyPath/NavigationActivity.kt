@@ -29,7 +29,7 @@ class NavigationActivity : AppCompatActivity() {
         setSupportActionBar(navigationBinding?.toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-supportActionBar?.setTitle("Welcome")
+        supportActionBar?.setTitle("Welcome")
 
         navigationBinding?.toolbar?.setNavigationOnClickListener {
             onBackPressed()
