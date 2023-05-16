@@ -1,24 +1,158 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.notifications.NotificationsFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_notifications"
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:padding="3dp"
+       android:layout_gravity="center">
+
+       <ImageView
+           android:id="@+id/imageView1"
+           android:layout_width="match_parent"
+           android:layout_height="80dp"
+           app:srcCompat="@drawable/cloudy"
+           android:layout_weight="1"/>
+       <ImageView
+           android:id="@+id/imageView2"
+           android:layout_width="match_parent"
+           android:layout_height="80dp"
+           app:srcCompat="@drawable/text_to_speech"
+           android:layout_weight="8"/>
+
+        </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/text_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="0sp"
+                android:background="@drawable/textview_card"/>
+
+            <TextView
+                android:id="@+id/id_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/textview_card"/>
+
+            <TextView
+                android:id="@+id/id_main_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/textview_card"/>
+
+            <TextView
+                android:id="@+id/id_feels_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/textview_card"/>
+
+            <TextView
+                android:id="@+id/id_presure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/textview_card"/>
+
+
+
+            <TextView
+                android:id="@+id/id_humidity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/textview_card"/>
+
+            <TextView
+                android:id="@+id/wind_speed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/textview_card"/>
+
+            <TextView
+                android:id="@+id/id_clouds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/textview_card" />
+
+            <TextView
+                android:id="@+id/id_sunrise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/textview_card" />
+
+            <TextView
+                android:id="@+id/id_sunset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/textview_card" />
+
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</RelativeLayout>

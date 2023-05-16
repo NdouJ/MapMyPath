@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package hr.algebra.MapMyPath
 
 import android.os.Bundle
@@ -13,20 +15,30 @@ import hr.algebra.MapMyPath.shared.Constants
 
 class NavigationActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityNavigationBinding
+    private lateinit var navigationBinding: ActivityNavigationBinding
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
-        binding = ActivityNavigationBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        navigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
+        setContentView(navigationBinding?.root)
 
-        val tvGreeting : TextView = findViewById(R.id.tvGreeting)
-        val intent = intent
+        setSupportActionBar(navigationBinding?.toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setTitle("Welcome")
+
+        navigationBinding?.toolbar?.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
         val name = intent.getStringExtra(Constants.USER_NAME)
-         tvGreeting.text="Hello $name"
 
-        val navView: BottomNavigationView = binding.navView
+
+        val navView: BottomNavigationView = navigationBinding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_navigation)
         // Passing each menu ID as a set of Ids because each

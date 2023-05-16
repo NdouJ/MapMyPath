@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/powder_blue"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+
+    tools:context=".RegistrationActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/powder_blue"
+        app:titleTextColor="@color/light_blue" />
+
+
+
+
+    <ImageView
+        android:id="@+id/user_picure"
+        android:layout_gravity="center"
+        android:layout_margin="70dp"
+        android:layout_width="100dp"
+        android:background="@drawable/rounded_image"
+        android:src="@drawable/user_icon"
+        android:layout_height="100dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tv_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionGo"
+            android:hint="Please enter user name"
+            android:textColor="@color/cream"
+            android:textColorHint="#7A8089"
+            android:background="@drawable/textview_card"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tv_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionGo"
+            android:hint="Please enter email"
+            android:textColor="@color/cream"
+            android:textColorHint="#7A8089"
+            android:background="@drawable/textview_card"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tv_password1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_password1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionGo"
+            android:hint="Please enter password"
+            android:textColor="@color/cream"
+            android:inputType="textPassword"
+            android:textColorHint="#7A8089"
+            android:background="@drawable/textview_card"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tv_password2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_password2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionGo"
+            android:hint="Please repeat password"
+            android:textColor="@color/cream"
+            android:inputType="textPassword"
+            android:textColorHint="#7A8089"
+            android:background="@drawable/textview_card"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content" >
+
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/powder_blue"
+            android:text="SUBMIT"
+            android:textColor="@android:color/white"
+            android:layout_margin="@dimen/buttonMargin"
+            android:textSize="18sp" />
+
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/buttonMargin"
+            android:backgroundTint="@color/apricot"
+            android:text="CANCEL"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
