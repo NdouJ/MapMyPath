@@ -18,11 +18,11 @@ private const val WEBCAM_IMAGE_URL_JARUN = "https://images-webcams.windy.com/08/
 
 class DashboardFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
+     var _binding: FragmentDashboardBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+     val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +39,13 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.text.observe(viewLifecycleOwner) {
 
         }
+            createLiveFeedUspinjaca()
 
+        createLiveFeedRest()
+        return root
+    }
 
+    public fun createLiveFeedUspinjaca() {
         val webCamUspinjaca = binding.webcamUspinjaca
         Picasso.get().load(WEBCAM_IMAGE_URL_USPINJACA).into(webCamUspinjaca, object : Callback {
             override fun onSuccess() {
@@ -48,9 +53,13 @@ class DashboardFragment : Fragment() {
             }
 
             override fun onError(e: Exception?) {
-                 e?.printStackTrace()
+                e?.printStackTrace()
             }
         })
+    }
+
+    public fun createLiveFeedRest() {
+
 
 
         val webCamTrg = binding.webcamTrgBanaJelacica
@@ -76,7 +85,6 @@ class DashboardFragment : Fragment() {
                 e?.printStackTrace()
             }
         })
-        return root
     }
 
     override fun onDestroyView() {

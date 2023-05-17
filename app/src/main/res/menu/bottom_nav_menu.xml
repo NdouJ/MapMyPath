@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/destination"
-        android:title="@string/destination" />
+        android:title="live feed" />
 
     <item
         android:id="@+id/navigation_notifications"
