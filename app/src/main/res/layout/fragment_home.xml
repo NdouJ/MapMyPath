@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/cities_back"
+    android:background="@color/light_blue"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".ui.home.HomeFragment">
 
     <TextView
@@ -21,4 +23,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Place your image view or any other content here -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view"
+            android:layout_width="150dp"
+            android:layout_gravity="center"
+            android:layout_height="150dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@android:drawable/ic_menu_camera" />
+
+    </FrameLayout>
+
 </LinearLayout>
