@@ -24,6 +24,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/iv_Share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:soundEffectsEnabled="true"
+        android:src="@drawable/share" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -36,12 +44,16 @@
             android:layout_gravity="center"
             android:layout_height="150dp" />
 
+
+
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
+            android:soundEffectsEnabled="true"
             android:src="@android:drawable/ic_menu_camera" />
 
     </FrameLayout>

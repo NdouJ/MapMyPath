@@ -24,9 +24,13 @@ import java.util.Date
 import java.util.Locale
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.INTERNET
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.provider.MediaStore
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 
 class HomeFragment : Fragment() {
 
@@ -57,6 +61,9 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+        binding.ivShare.setOnClickListener{
+            shareThumbnailViaIntent()
+        }
 
         binding.floatingCamera.setOnClickListener {
             if(
@@ -74,8 +81,8 @@ ActivityCompat.requestPermissions(
     CAMERA_PERMISION_CODE
 )
 
-            }
 
+            }
 
             }
 
@@ -83,14 +90,48 @@ ActivityCompat.requestPermissions(
         return root
     }
 
+    private fun shareThumbnailViaIntent() {
+        // Create an intent to share the thumbnail
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "image/jpeg"
+
+        // Add the thumbnail as an attachment
+        val bitmap = (binding.imageView.drawable as BitmapDrawable).bitmap
+        val path = MediaStore.Images.Media.insertImage(
+            requireContext().contentResolver,
+            bitmap,
+            "mapMyPathZagreb",
+            null
+        )
+        val thumbnailUri = Uri.parse(path)
+        shareIntent.putExtra(Intent.EXTRA_STREAM, thumbnailUri)
+
+
+        startActivity(Intent.createChooser(shareIntent, "Share Thumbnail"))
+    }
+
     private fun takePhoto() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, CAMERA_REQUEST_CODE)
+
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if ( resultCode==Activity.RESULT_OK){
+            if(requestCode== CAMERA_REQUEST_CODE){
+                val thumBnail: Bitmap = data!!.extras!!.get("data") as Bitmap
+                binding.imageView.setImageBitmap(thumBnail)
+
+                binding.ivShare.isVisible=true;
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }
