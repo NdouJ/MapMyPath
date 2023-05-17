@@ -4,10 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
 import hr.algebra.MapMyPath.databinding.FragmentDashboardBinding
+import com.squareup.picasso.Callback
+
+
+
+private const val WEBCAM_IMAGE_URL_USPINJACA = "https://images-webcams.windy.com/57/1384996057/current/full/1384996057.jpg"
+private const val WEBCAM_IMAGE_URL_TRG = "https://images-webcams.windy.com/09/1599596709/current/full/1599596709.jpg"
+private const val WEBCAM_IMAGE_URL_JARUN = "https://images-webcams.windy.com/08/1384995908/current/full/1384995908.jpg"
 
 class DashboardFragment : Fragment() {
 
@@ -29,10 +36,46 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
         dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+
         }
+
+
+        val webCamUspinjaca = binding.webcamUspinjaca
+        Picasso.get().load(WEBCAM_IMAGE_URL_USPINJACA).into(webCamUspinjaca, object : Callback {
+            override fun onSuccess() {
+                // Image loaded successfully
+            }
+
+            override fun onError(e: Exception?) {
+                 e?.printStackTrace()
+            }
+        })
+
+
+        val webCamTrg = binding.webcamTrgBanaJelacica
+        Picasso.get().load(WEBCAM_IMAGE_URL_TRG).into(webCamTrg, object : Callback {
+            override fun onSuccess() {
+                // Image loaded successfully
+            }
+
+            override fun onError(e: Exception?) {
+                e?.printStackTrace()
+            }
+        })
+
+
+
+        val webCamJarun = binding.webcamJarun
+        Picasso.get().load(WEBCAM_IMAGE_URL_JARUN).into(webCamJarun, object : Callback {
+            override fun onSuccess() {
+                // Image loaded successfully
+            }
+
+            override fun onError(e: Exception?) {
+                e?.printStackTrace()
+            }
+        })
         return root
     }
 

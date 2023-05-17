@@ -98,7 +98,7 @@ while(true){
 }
         return root
     }
-    private fun getWeatherFropOpenWeatherApi() {
+    fun getWeatherFropOpenWeatherApi() {
         GlobalScope.launch(Dispatchers.IO) {
             progressBar.visibility = View.VISIBLE
             val apiKey = "cda5d4bb347f5cd215128a802a0419b6"
@@ -137,7 +137,7 @@ while(true){
 
 
 
-    private fun makeClothesRecomendation(weatherData: WeatherData?) {
+    public fun makeClothesRecomendation(weatherData: WeatherData?) {
 
 
 
