@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="hr.algebra.MapMyPath.ui.dashboard.DashboardFragment"
+        android:name="hr.algebra.MapMyPath.ui.home.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
@@ -21,5 +21,11 @@
         android:id="@+id/navigation_notifications"
         android:name="hr.algebra.MapMyPath.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_maps"
+        android:name="hr.algebra.MapMyPath.ui.home.map.MapsFragment"
+        android:label="Google Map"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

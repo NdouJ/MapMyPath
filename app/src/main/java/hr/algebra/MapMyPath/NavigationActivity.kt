@@ -3,19 +3,27 @@
 package hr.algebra.MapMyPath
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapFragment
+import com.google.android.gms.maps.MapView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.algebra.MapMyPath.databinding.ActivityNavigationBinding
 import hr.algebra.MapMyPath.shared.Constants
+import com.google.android.gms.maps.OnMapReadyCallback
+
 
 class NavigationActivity : AppCompatActivity() {
 
     private lateinit var navigationBinding: ActivityNavigationBinding
+
 
 
 
@@ -40,6 +48,9 @@ class NavigationActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = navigationBinding.navView
 
+
+
+
         val navController = findNavController(R.id.nav_host_fragment_activity_navigation)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -50,5 +61,12 @@ class NavigationActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
+
+
+
     }
+
+
 }

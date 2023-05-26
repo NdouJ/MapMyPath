@@ -7,4 +7,10 @@
     <string name="title_notifications">Notifications</string>
     <string name="destination">destination</string>
     <string name="weather">Weather</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_google_map">Google Map</string>
+    <string name="map">Map</string>
+
+
+
 </resources>
