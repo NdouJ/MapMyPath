@@ -24,6 +24,9 @@ import hr.algebra.MapMyPath.shared.Constants
 import android.Manifest
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.os.AsyncTask
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,8 +39,11 @@ class MainActivity : AppCompatActivity() {
         val buttonSubmit : Button = findViewById(R.id.btn_submit)
         val rootView = findViewById<View>(android.R.id.content)
         val tvUserName : TextView = findViewById(R.id.tv_username)
+        val etPassword : TextView = findViewById(R.id.et_password);
         val IvrunningRabbit : ImageView = findViewById(R.id.rabbit_running)
         val tv_registration :TextView = findViewById(R.id.tv_registration)
+        var username : String
+        var password : String
 
 
 
@@ -78,20 +84,55 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, NavigationActivity::class.java))
             }
 
-        
-        
-
         buttonSubmit.setOnClickListener {
+             username = tvUserName.text.toString()
+             password = etPassword.text.toString()
 
-            val intent = Intent(this, NavigationActivity::class.java)
-            intent.putExtra(Constants.USER_NAME, tvUserName.text.toString())
+            // Execute the AsyncTask with the user input
+            class ValidateUserTask(private val username: String, private val password: String) : AsyncTask<Unit, Unit, String>() {
+                override fun doInBackground(vararg params: Unit?): String {
+                    val baseUrl = "https://mapmypathweb.azurewebsites.net"
+                    val endpoint = "/validateuser/$username/$password"
+                    val apiUrl = URL(baseUrl + endpoint)
 
-            //TODO: firebase ili neka autentifikacija s dodatnim funkcionalnostima
+                    val connection = apiUrl.openConnection() as HttpURLConnection
+                    connection.setRequestProperty("User-Agent", "Postman")
+                    return try {
+                        connection.requestMethod = "GET"
+                        val responseCode = connection.responseCode
 
-            Log.e(this.toString(), "Entering  with authorization")
-            startActivity(Intent(this, NavigationActivity::class.java))
+                        if (responseCode == HttpURLConnection.HTTP_OK) {
+                            val response = connection.inputStream.bufferedReader().readText()
+                            response
+                        } else {
+                            "Error"
+                        }
+                    } finally {
+                        connection.disconnect()
+                    }
+                }
 
+                override fun onPostExecute(result: String) {
+                    if (result == "Success") {
+                        val intent = Intent(this@MainActivity, NavigationActivity::class.java)
+                        intent.putExtra(Constants.USER_NAME, username)
+                        this@MainActivity.startActivity(intent)
+                        Toast.makeText(this@MainActivity, "Success: $result", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this@MainActivity, result, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            // AsyncTask to perform the network operation
+            val validateUserTask = ValidateUserTask(username, password)
+            validateUserTask.execute()
         }
+
+// Inside the buttonSubmit.setOnClickListener
+
+
+
 
         rootView.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -118,6 +159,8 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
 
     private fun animateRabbit(ivrunningRabbit: ImageView) {
         val screenWidth = resources.displayMetrics.widthPixels.toFloat()
@@ -155,7 +198,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 1) {
             if (grantResults.isNotEmpty() &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission was granted, you can access the internet
+                // Permission was granted, you can access the internetfToa
             } else {
                 // Permission was denied, you cannot access the internet
             }

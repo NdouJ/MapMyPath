@@ -96,7 +96,7 @@
                             android:layout_height="wrap_content"
                             android:imeOptions="actionGo"
                             android:hint="Name"
-                            android:inputType="textPassword"
+
                             android:textColor="#363A43"
                             android:textColorHint="#7A8089" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -127,6 +127,7 @@
                             android:layout_height="wrap_content"
                             android:imeOptions="actionGo"
                             android:hint="Password"
+                            android:inputType="textPassword"
                             android:textColor="#363A43"
                             android:textColorHint="#7A8089" />
 
