@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_overlay"
+        android:icon="@drawable/museum_background"
+        android:title="Overlay" />
+    <item
+        android:id="@+id/nav_save_route"
+        android:icon="@drawable/museum_background"
+        android:title="Save Route" />
+
+</menu>

@@ -16,4 +16,9 @@
         android:icon="@drawable/cloudy"
         android:title="@string/weather" />
 
+    <item
+        android:id="@+id/navigation_maps"
+        android:icon="@drawable/map"
+        android:title="@string/map" />
+
 </menu>

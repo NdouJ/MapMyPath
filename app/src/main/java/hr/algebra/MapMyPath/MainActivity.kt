@@ -11,6 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+<<<<<<< Updated upstream
+=======
+import android.util.Log.ASSERT
+import android.view.Menu
+import android.view.MenuItem
+>>>>>>> Stashed changes
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -21,12 +27,18 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import hr.algebra.MapMyPath.shared.Constants
+<<<<<<< Updated upstream
 import android.Manifest
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 
+=======
+import hr.algebra.MapMyPath.ui.home.HomeViewModel
+>>>>>>> Stashed changes
 
 class MainActivity : AppCompatActivity() {
+
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         val rootView = findViewById<View>(android.R.id.content)
         val tvUserName : TextView = findViewById(R.id.tv_username)
         val IvrunningRabbit : ImageView = findViewById(R.id.rabbit_running)
+<<<<<<< Updated upstream
         val tv_registration :TextView = findViewById(R.id.tv_registration)
 
 
@@ -69,6 +82,8 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+=======
+>>>>>>> Stashed changes
 
 
         animateRabbit(IvrunningRabbit)
@@ -78,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, NavigationActivity::class.java))
             }
 
-        
+
         
 
         buttonSubmit.setOnClickListener {
@@ -111,13 +126,10 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-
-
-
-
-
-
     }
+
+
+
 
     private fun animateRabbit(ivrunningRabbit: ImageView) {
         val screenWidth = resources.displayMetrics.widthPixels.toFloat()

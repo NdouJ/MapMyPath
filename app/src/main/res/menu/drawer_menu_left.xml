@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/icon_1"
+        android:icon="@drawable/museum_background"
+        android:title="Museums"
+        android:background="@color/powder_blue"/>
+    <item android:id="@+id/icon_2"
+        android:icon="@drawable/museum_background"
+        android:title="Restaurants" />
+    <item android:id="@+id/icon_3"
+        android:icon="@drawable/museum_background"
+        android:title="ATMs" />
+    <item android:id="@+id/icon_4"
+        android:icon="@drawable/museum_background"
+        android:title="Movie Theater" />
+    <item android:id="@+id/icon_5"
+        android:icon="@drawable/museum_background"
+        android:title="Park" />
+    <item android:id="@+id/icon_6"
+        android:icon="@drawable/museum_background"
+        android:title="Doctor" />
+    <item android:id="@+id/icon_7"
+        android:icon="@drawable/museum_background"
+        android:title="Local Government" />
+</menu>
+
